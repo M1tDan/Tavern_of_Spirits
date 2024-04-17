@@ -3,7 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Table-top1
+  - Table-top2
+  - Table-top3
+  - Table-leg1
+  - Table-leg2
+  - Table-leg3
+  - Chair1
+  - Chair2
+  - Chair3
   layers:
   - Default
   - TransparentFX
