@@ -7,6 +7,7 @@ public class Timer : MonoBehaviour
 {
     public GameObject NextDay;
 
+    public float timerSpeed = 0.5f;
     private int minutes = 0;
     private int hours = 6;
     private float currentArrow = 136f;
@@ -33,7 +34,7 @@ public class Timer : MonoBehaviour
                 pause = 0;
                 NextDay.SetActive(true);
             }
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(timerSpeed);
         }
     }
 
