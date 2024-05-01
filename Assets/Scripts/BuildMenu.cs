@@ -127,18 +127,21 @@ public class BuildMenu : MonoBehaviour
                 foreach (GameObject chair in chairs1)
                 {
                     chair.SetActive(true); // Активировать стулья с тегом Chair1
+                    SaveLastChair(1);
                 }
                 break;
             case 2:
                 foreach (GameObject chair in chairs2)
                 {
                     chair.SetActive(true); // Активировать стулья с тегом Chair2
+                    SaveLastChair(2);
                 }
                 break;
             case 3:
                 foreach (GameObject chair in chairs3)
                 {
                     chair.SetActive(true); // Активировать стулья с тегом Chair3
+                    SaveLastChair(3);
                 }
                 break;
             // Добавить случаи для дополнительных типов стульев при необходимости
@@ -171,18 +174,21 @@ public class BuildMenu : MonoBehaviour
                 foreach (GameObject top in tops1)
                 {
                     top.SetActive(true); // Активировать столешницы с тегом Table-top1
+                    SaveLastTop(1);
                 }
                 break;
             case 2:
                 foreach (GameObject top in tops2)
                 {
                     top.SetActive(true); // Активировать столешницы с тегом Table-top2
+                    SaveLastTop(2);
                 }
                 break;
             case 3:
                 foreach (GameObject top in tops3)
                 {
                     top.SetActive(true); // Активировать столешницы с тегом Table-top3
+                    SaveLastTop(3);
                 }
                 break;
             // Добавить случаи для дополнительных типов столешниц при необходимости
@@ -215,18 +221,21 @@ public class BuildMenu : MonoBehaviour
                 foreach (GameObject leg in legs1)
                 {
                     leg.SetActive(true); // Активировать ножки столов с тегом Table-leg1
+                    SaveLastLeg(1);
                 }
                 break;
             case 2:
                 foreach (GameObject leg in legs2)
                 {
                     leg.SetActive(true); // Активировать ножки столов с тегом Table-leg2
+                    SaveLastLeg(2);
                 }
                 break;
             case 3:
                 foreach (GameObject leg in legs3)
                 {
                     leg.SetActive(true); // Активировать ножки столов с тегом Table-leg3
+                    SaveLastLeg(3);
                 }
                 break;
             // Добавить случаи для дополнительных типов ножек столов при необходимости
