@@ -6,12 +6,19 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameObject player;
+
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private FixedJoystick _joystick;
 
     [SerializeField] public float _moveSpeed = 4;
 
     public Animator animator;
+
+    private void Start()
+    {
+         player.GetComponent<SpriteRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+    }
 
     private void FixedUpdate()
     {
