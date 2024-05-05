@@ -13,6 +13,7 @@ TagManager:
   - Chair1
   - Chair2
   - Chair3
+  - SitPlace
   layers:
   - Default
   - TransparentFX
