@@ -4,236 +4,188 @@ using UnityEngine;
 
 public class CookingScript : MonoBehaviour
 {
-    private GameObject[] sitPlacesArray;
-    private List<GameObject> sitPlaces;
-    private int randomPlaceCooking, quantityOfSitPlaces;
+    private GameObject[] sitPlaces;
+    public GameObject[] cookingImages;
+    private bool[] hasOrder;
+    private Color[] orderColors = { new Color(0f, 1f, 0f), new Color(1f, 1f, 0f), new Color(1f, 0f, 0f), new Color(1f, 0f, 1f), new Color(0f, 0f, 1f) };
 
-    private int cooking1, cooking2, cooking3, cooking4, cooking5;
-    public GameObject cookingImage1, cookingImage2, cookingImage3, cookingImage4, cookingImage5;
-    public Collider CookingColloder1, CookingColloder2, CookingColloder3, CookingColloder4, CookingColloder5;
-
-    private Dictionary<int, UnityEngine.Color> Cookings = new Dictionary<int, UnityEngine.Color>
-    {
-        { 1, new UnityEngine.Color(0f, 1f, 0f) },
-        { 2, new UnityEngine.Color(1f, 1f, 0f) },
-        { 3, new UnityEngine.Color(1f, 0f, 0f) },
-        { 4, new UnityEngine.Color(1f, 0f, 1f) },
-        { 5, new UnityEngine.Color(0f, 0f, 1f) },
-    };
+    public GameObject[] imageButtons;
+    public GameObject headImage;
 
     private void Start()
     {
-        sitPlacesArray = GameObject.FindGameObjectsWithTag("SitPlace");
-        sitPlaces = new List<GameObject>(sitPlacesArray);
-        quantityOfSitPlaces = sitPlacesArray.Length;
-        Debug.Log("Количество сидячих мест: " + quantityOfSitPlaces);
-        foreach (GameObject sitPlace in sitPlaces)
-        {
-            randomPlaceCooking = Random.Range(1, 5);
-            sitPlace.transform.GetComponent<SpriteRenderer>().material.color = Cookings[randomPlaceCooking];
-        }
-
-        ReCooking();
+        sitPlaces = GameObject.FindGameObjectsWithTag("SitPlace");
+        hasOrder = new bool[sitPlaces.Length];
     }
 
-    public void ReCooking()
+    public void AddOrder()
     {
-        ChoseCooking1();
-        ChoseCooking2();
-        ChoseCooking3();
-        ChoseCooking4();
-        ChoseCooking5();
-        ChangeImage1();
-        ChangeImage2();
-        ChangeImage3();
-        ChangeImage4();
-        ChangeImage5();
-    }
+        List<int> availableIndices = new List<int>();
+        for (int i = 0; i < sitPlaces.Length; i++)
+        {
+            if (!hasOrder[i])
+            {
+                availableIndices.Add(i);
+            }
+        }
 
-    private void ChoseCooking1()
-    {
-        cooking1 = Random.Range(1, 5);
-    }
-    private void ChoseCooking2()
-    {
-        cooking2 = Random.Range(1, 5);
-    }
-    private void ChoseCooking3()
-    {
-        cooking3 = Random.Range(1, 5);
-    }
-    private void ChoseCooking4()
-    {
-        cooking4 = Random.Range(1, 5);
-    }
-    private void ChoseCooking5()
-    {
-        cooking5 = Random.Range(1, 5);
-    }
+        if (availableIndices.Count == 0)
+        {
+            Debug.Log("Нет доступных мест для размещения заказа.");
+            return;
+        }
 
-    private void ChangeImage1()
-    {
-        SpriteRenderer meshRenderer;
-        switch (cooking1)
+        int randomIndex = availableIndices[Random.Range(0, availableIndices.Count)];
+        int randomOrderIndex = Random.Range(0, orderColors.Length);
+        Color orderColor = orderColors[randomOrderIndex];
+
+        sitPlaces[randomIndex].GetComponent<SpriteRenderer>().material.color = orderColor;
+        hasOrder[randomIndex] = true;
+
+        for (int i = 0; i < cookingImages.Length; i++)
         {
-            case 1:
-                meshRenderer = cookingImage1.transform.GetComponent<SpriteRenderer>(); ;
-                meshRenderer.material.color = Cookings[1];
-                Debug.Log("1");
+            if (!cookingImages[i].activeSelf)
+            {
+                cookingImages[i].SetActive(true);
+                cookingImages[i].transform.Find("Square").GetComponent<SpriteRenderer>().material.color = orderColor;
+
                 break;
-            case 2:
-                meshRenderer = cookingImage1.transform.GetComponent<SpriteRenderer>(); ;
-                meshRenderer.material.color = Cookings[2];
-                Debug.Log("2");
-                break;
-            case 3:
-                meshRenderer = cookingImage1.transform.GetComponent<SpriteRenderer>(); ;
-                meshRenderer.material.color = Cookings[3];
-                Debug.Log("3");
-                break;
-            case 4:
-                meshRenderer = cookingImage1.transform.GetComponent<SpriteRenderer>(); ;
-                meshRenderer.material.color = Cookings[4];
-                Debug.Log("4");
-                break;
-            case 5:
-                meshRenderer = cookingImage1.transform.GetComponent<SpriteRenderer>(); ;
-                meshRenderer.material.color = Cookings[5];
-                Debug.Log("5");
-                break;
-        }
-    }
-    private void ChangeImage2()
-    {
-        SpriteRenderer meshRenderer;
-        switch (cooking2)
-        {
-            case 1:
-                meshRenderer = cookingImage2.transform.GetComponent<SpriteRenderer>(); ;
-                meshRenderer.material.color = Cookings[1];
-                Debug.Log("1");
-                break;
-            case 2:
-                meshRenderer = cookingImage2.transform.GetComponent<SpriteRenderer>(); ;
-                meshRenderer.material.color = Cookings[2];
-                Debug.Log("2");
-                break;
-            case 3:
-                meshRenderer = cookingImage2.transform.GetComponent<SpriteRenderer>(); ;
-                meshRenderer.material.color = Cookings[3];
-                Debug.Log("3");
-                break;
-            case 4:
-                meshRenderer = cookingImage2.transform.GetComponent<SpriteRenderer>(); ;
-                meshRenderer.material.color = Cookings[4];
-                Debug.Log("4");
-                break;
-            case 5:
-                meshRenderer = cookingImage2.transform.GetComponent<SpriteRenderer>(); ;
-                meshRenderer.material.color = Cookings[5];
-                Debug.Log("5");
-                break;
-        }
-    }
-    private void ChangeImage3()
-    {
-        SpriteRenderer meshRenderer;
-        switch (cooking3)
-        {
-            case 1:
-                meshRenderer = cookingImage3.transform.GetComponent<SpriteRenderer>(); ;
-                meshRenderer.material.color = Cookings[1];
-                Debug.Log("1");
-                break;
-            case 2:
-                meshRenderer = cookingImage3.transform.GetComponent<SpriteRenderer>(); ;
-                meshRenderer.material.color = Cookings[2];
-                Debug.Log("2");
-                break;
-            case 3:
-                meshRenderer = cookingImage3.transform.GetComponent<SpriteRenderer>(); ;
-                meshRenderer.material.color = Cookings[3];
-                Debug.Log("3");
-                break;
-            case 4:
-                meshRenderer = cookingImage3.transform.GetComponent<SpriteRenderer>(); ;
-                meshRenderer.material.color = Cookings[4];
-                Debug.Log("4");
-                break;
-            case 5:
-                meshRenderer = cookingImage3.transform.GetComponent<SpriteRenderer>(); ;
-                meshRenderer.material.color = Cookings[5];
-                Debug.Log("5");
-                break;
-        }
-    }
-    private void ChangeImage4()
-    {
-        SpriteRenderer meshRenderer;
-        switch (cooking4)
-        {
-            case 1:
-                meshRenderer = cookingImage4.transform.GetComponent<SpriteRenderer>(); ;
-                meshRenderer.material.color = Cookings[1];
-                Debug.Log("1");
-                break;
-            case 2:
-                meshRenderer = cookingImage4.transform.GetComponent<SpriteRenderer>(); ;
-                meshRenderer.material.color = Cookings[2];
-                Debug.Log("2");
-                break;
-            case 3:
-                meshRenderer = cookingImage4.transform.GetComponent<SpriteRenderer>(); ;
-                meshRenderer.material.color = Cookings[3];
-                Debug.Log("3");
-                break;
-            case 4:
-                meshRenderer = cookingImage4.transform.GetComponent<SpriteRenderer>(); ;
-                meshRenderer.material.color = Cookings[4];
-                Debug.Log("4");
-                break;
-            case 5:
-                meshRenderer = cookingImage4.transform.GetComponent<SpriteRenderer>(); ;
-                meshRenderer.material.color = Cookings[5];
-                Debug.Log("5");
-                break;
-        }
-    }
-    private void ChangeImage5()
-    {
-        SpriteRenderer meshRenderer;
-        switch (cooking5)
-        {
-            case 0:
-                meshRenderer = cookingImage5.transform.GetComponent<SpriteRenderer>(); ;
-                meshRenderer.material.color = Cookings[1];
-                Debug.Log("1");
-                break;
-            case 1:
-                meshRenderer = cookingImage5.transform.GetComponent<SpriteRenderer>(); ;
-                meshRenderer.material.color = Cookings[2];
-                Debug.Log("2");
-                break;
-            case 2:
-                meshRenderer = cookingImage5.transform.GetComponent<SpriteRenderer>(); ;
-                meshRenderer.material.color = Cookings[3];
-                Debug.Log("3");
-                break;
-            case 3:
-                meshRenderer = cookingImage5.transform.GetComponent<SpriteRenderer>(); ;
-                meshRenderer.material.color = Cookings[4];
-                Debug.Log("4");
-                break;
-            case 4:
-                meshRenderer = cookingImage5.transform.GetComponent<SpriteRenderer>(); ;
-                meshRenderer.material.color = Cookings[5];
-                Debug.Log("5");
-                break;
+            }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collision Enter");
+        string triggerName = other.name;
+        int zoneNumber;
+        if (int.TryParse(triggerName, out zoneNumber) && zoneNumber >= 1 && zoneNumber <= 5)
+        {
+            if (zoneNumber < imageButtons.Length)
+            {
+                imageButtons[zoneNumber].SetActive(true);
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        string triggerName = other.name;
+        int zoneNumber;
+        if (int.TryParse(triggerName, out zoneNumber) && zoneNumber >= 1 && zoneNumber <= 5)
+        {
+            if (zoneNumber < imageButtons.Length)
+            {
+                imageButtons[zoneNumber].SetActive(false);
+            }
+        }
+        if (imageButtons.Length > 0)
+        {
+            imageButtons[0].SetActive(true);
+        }
+    }
+
+    public void TakeCooking1()
+    {
+        if (headImage.activeSelf == false && cookingImages[0].activeSelf == true)
+        {
+            headImage.SetActive(true);
+            headImage.GetComponent<SpriteRenderer>().material.color = cookingImages[0].transform.Find("Square").GetComponent<SpriteRenderer>().material.color;
+            cookingImages[0].transform.Find("Square").GetComponent<SpriteRenderer>().material.color = Color.white;
+            cookingImages[0].SetActive(false);
+
+            for (int i = 1; i < 6; i++)
+            {
+                imageButtons[i].SetActive(false);
+            }
+            imageButtons[0].SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Руки заянты");
+        }
+    }
+
+    public void TakeCooking2()
+    {
+        if (headImage.activeSelf == false && cookingImages[1].activeSelf == true)
+        {
+            headImage.SetActive(true);
+            headImage.GetComponent<SpriteRenderer>().material.color = cookingImages[1].transform.Find("Square").GetComponent<SpriteRenderer>().material.color;
+            cookingImages[1].transform.Find("Square").GetComponent<SpriteRenderer>().material.color = Color.white;
+            cookingImages[1].SetActive(false);
+
+            for (int i = 1; i < 6; i++)
+            {
+                imageButtons[i].SetActive(false);
+            }
+            imageButtons[0].SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Руки заянты");
+        }
+    }
+
+    public void TakeCooking3()
+    {
+        if (headImage.activeSelf == false && cookingImages[2].activeSelf == true)
+        {
+            headImage.SetActive(true);
+            headImage.GetComponent<SpriteRenderer>().material.color = cookingImages[2].transform.Find("Square").GetComponent<SpriteRenderer>().material.color;
+            cookingImages[2].transform.Find("Square").GetComponent<SpriteRenderer>().material.color = Color.white;
+            cookingImages[2].SetActive(false);
+
+            for (int i = 1; i < 6; i++)
+            {
+                imageButtons[i].SetActive(false);
+            }
+            imageButtons[0].SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Руки заянты");
+        }
+    }
+
+    public void TakeCooking4()
+    {
+        if (headImage.activeSelf == false && cookingImages[3].activeSelf == true)
+        {
+            headImage.SetActive(true);
+            headImage.GetComponent<SpriteRenderer>().material.color = cookingImages[3].transform.Find("Square").GetComponent<SpriteRenderer>().material.color;
+            cookingImages[3].transform.Find("Square").GetComponent<SpriteRenderer>().material.color = Color.white;
+            cookingImages[3].SetActive(false);
+
+            for (int i = 1; i < 6; i++)
+            {
+                imageButtons[i].SetActive(false);
+            }
+            imageButtons[0].SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Руки заянты");
+        }
+    }
+
+    public void TakeCooking5()
+    {
+        if (headImage.activeSelf == false && cookingImages[4].activeSelf == true)
+        {
+            headImage.SetActive(true);
+            headImage.GetComponent<SpriteRenderer>().material.color = cookingImages[4].transform.Find("Square").GetComponent<SpriteRenderer>().material.color;
+            cookingImages[4].transform.Find("Square").GetComponent<SpriteRenderer>().material.color = Color.white;
+            cookingImages[4].SetActive(false);
+
+            for (int i = 1; i < 6; i++)
+            {
+                imageButtons[i].SetActive(false);
+            }
+            imageButtons[0].SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Руки заянты");
+        }
     }
 }
