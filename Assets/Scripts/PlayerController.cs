@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Rigidbody), typeof(BoxCollider))]
 
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private FixedJoystick _joystick;
 
     [SerializeField] public float _moveSpeed = 4;
+    private Vector3 moveDirection;
 
     public Animator animator;
 
@@ -22,55 +24,35 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rigidbody.velocity = new Vector3(_joystick.Horizontal * _moveSpeed, _rigidbody.velocity.y, _joystick.Vertical * _moveSpeed);
+        if (_joystick != null)
+        {
+            _rigidbody.velocity = new Vector3(_joystick.Horizontal * _moveSpeed, _rigidbody.velocity.y, _joystick.Vertical * _moveSpeed);
+            animator.SetInteger("IsMoving", 1);
+            animator.SetFloat("HorizontalMove", _joystick.Horizontal);
+        }
+        else if (_joystick.Horizontal == 0f || _joystick.Vertical == 0f)
+        {
+            animator.SetInteger("IsMoving", 0);
+        }
 
-        animator.SetFloat("HorizontalMove", _joystick.Horizontal);
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        {
+            float moveX = Input.GetAxisRaw("Horizontal");
+            float moveY = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKey(KeyCode.A) & Input.GetKey(KeyCode.W))
-        {
-            _rigidbody.velocity = new Vector3(-0.75f * _moveSpeed, _rigidbody.velocity.y, 0.75f * _moveSpeed);
-            animator.SetFloat("HorizontalMove", -1f);
-        }
-        else if (Input.GetKey(KeyCode.S) & Input.GetKey(KeyCode.W))
-        {
-            _rigidbody.velocity = new Vector3(0 * _moveSpeed, _rigidbody.velocity.y, 0 * _moveSpeed);
-        }
-        else if (Input.GetKey(KeyCode.D) & Input.GetKey(KeyCode.W))
-        {
-            _rigidbody.velocity = new Vector3(0.75f * _moveSpeed, _rigidbody.velocity.y, 0.75f * _moveSpeed);
-            animator.SetFloat("HorizontalMove", 1f);
-        }
-        else if (Input.GetKey(KeyCode.A) & Input.GetKey(KeyCode.D))
-        {
-            _rigidbody.velocity = new Vector3(0 * _moveSpeed, _rigidbody.velocity.y, 0 * _moveSpeed);
-        }
-        else if (Input.GetKey(KeyCode.A) & Input.GetKey(KeyCode.S))
-        {
-            _rigidbody.velocity = new Vector3(-0.75f * _moveSpeed, _rigidbody.velocity.y, -0.75f * _moveSpeed);
-            animator.SetFloat("HorizontalMove", -1f);
-        }
-        else if (Input.GetKey(KeyCode.D) & Input.GetKey(KeyCode.S))
-        {
-            _rigidbody.velocity = new Vector3(0.75f * _moveSpeed, _rigidbody.velocity.y, -0.75f * _moveSpeed);
-            animator.SetFloat("HorizontalMove", 1f);
-        }
-        else if (Input.GetKey(KeyCode.W))
-        {
-            _rigidbody.velocity = new Vector3(0 * _moveSpeed, _rigidbody.velocity.y, 1f * _moveSpeed);
-        }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            _rigidbody.velocity = new Vector3(-1f * _moveSpeed, _rigidbody.velocity.y, 0 * _moveSpeed);
-            animator.SetFloat("HorizontalMove", -1f);
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            _rigidbody.velocity = new Vector3(0 * _moveSpeed, _rigidbody.velocity.y, -1f * _moveSpeed);
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            _rigidbody.velocity = new Vector3(1f * _moveSpeed, _rigidbody.velocity.y, 0 * _moveSpeed);
-            animator.SetFloat("HorizontalMove", 1f);
+            moveDirection = new Vector3(moveX, _rigidbody.velocity.y, moveY);
+
+            _rigidbody.velocity = new Vector3(moveDirection.x * _moveSpeed, _rigidbody.velocity.y, moveDirection.z * _moveSpeed);
+
+            if (moveDirection.x != 0f || moveDirection.z != 0f)
+            {
+                animator.SetInteger("IsMoving", 1);
+                animator.SetFloat("HorizontalMove", moveDirection.x);
+            }
+            else
+            {
+                animator.SetInteger("IsMoving", 0);
+            }
         }
     }
 }
