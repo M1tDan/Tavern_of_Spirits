@@ -48,7 +48,7 @@ public class Timer : MonoBehaviour
 
     private void Start()
     {
-        //PlayerPrefs.DeleteKey("DayNumber"); //закоментировать если не нужно обнулять дни
+        PlayerPrefs.DeleteKey("DayNumber"); //закоментировать если не нужно обнулять дни
         TimerSlider.maxValue = hoursForTimer;
         StartCoroutine(DayTimer());
         if(PlayerPrefs.GetInt("DayNumber") == 0)

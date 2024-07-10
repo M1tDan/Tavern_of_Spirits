@@ -6969,7 +6969,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 0.94372314, b: 0.5235849, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -7017,7 +7017,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8867924, g: 0.80448204, b: 0.45594516, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -11907,7 +11907,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.4, y: 1, z: 0.2}
+  m_Size: {x: 0.4, y: 1, z: 0.4}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &847085971
 Rigidbody:
@@ -12007,6 +12007,14 @@ MonoBehaviour:
   _joystick: {fileID: 1896594979}
   _moveSpeed: 4
   animator: {fileID: 847085974}
+  imageButtons:
+  - {fileID: 175373793}
+  - {fileID: 1313934464}
+  - {fileID: 1758944102}
+  - {fileID: 726953330}
+  - {fileID: 2111256117}
+  - {fileID: 16046742}
+  - {fileID: 521489256}
 --- !u!95 &847085974
 Animator:
   serializedVersion: 7

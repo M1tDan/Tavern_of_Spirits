@@ -129,6 +129,8 @@ public class CookingScript : MonoBehaviour
         {
             // Обрабатываем вход в коллайдер стойки выдачи заказов
             // Например, что-то связанное с изменением кнопок
+            imageButtons[0].SetActive(false);
+            imageButtons[6].SetActive(false);
             string triggerName = other.name;
             int zoneNumber;
             if (int.TryParse(triggerName, out zoneNumber) && zoneNumber >= 1 && zoneNumber <= 5)
@@ -143,15 +145,12 @@ public class CookingScript : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        // Отключаем остальные кнопки
+        for (int i = 0; i < imageButtons.Length; i++)
+        {
+            imageButtons[i].SetActive(false);
+        }
         imageButtons[0].SetActive(true);
-
-        imageButtons[1].SetActive(false);
-        imageButtons[2].SetActive(false);
-        imageButtons[3].SetActive(false);
-        imageButtons[4].SetActive(false);
-        imageButtons[5].SetActive(false);
-
-        imageButtons[6].SetActive(false);
     }
 
     public void TakeCooking1()
