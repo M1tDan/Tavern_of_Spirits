@@ -27,6 +27,7 @@ public class CookingScript : MonoBehaviour
         }
     }
 
+    //Добавление заказа (красная кнопка), в дальнейшем замменить ана автоматическое создание заказа
     public void AddOrder()
     {
         List<int> availableIndices = new List<int>();
@@ -88,6 +89,7 @@ public class CookingScript : MonoBehaviour
         }
     }
 
+    //Достать заказ из очереди
     public void ServeOrder()
     {
         if (orderQueue.Count > 0)
@@ -110,6 +112,7 @@ public class CookingScript : MonoBehaviour
         }
     }
 
+    //Активация кнопки действия при подходе к прилавку
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("chair"))
@@ -142,7 +145,6 @@ public class CookingScript : MonoBehaviour
             }
         }
     }
-
     private void OnTriggerExit(Collider other)
     {
         // Отключаем остальные кнопки

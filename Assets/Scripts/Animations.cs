@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 
+//анимация гоблина на сцене
 public class Animations : MonoBehaviour
 {
+    //Объект на сцене
     public GameObject Goblin1, Goblin2;
 
     void Start()
@@ -12,6 +14,7 @@ public class Animations : MonoBehaviour
         StartCoroutine(GoblinIdleAnimation());
     }
 
+    //Запуск анимации
     IEnumerator GoblinIdleAnimation()
     {
         while (true)

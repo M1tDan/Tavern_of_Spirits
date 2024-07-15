@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//«вуки в меню
 public class Sounds : MonoBehaviour
 {
     public AudioClip[] sounds;

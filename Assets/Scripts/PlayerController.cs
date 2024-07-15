@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] public float _moveSpeed = 4;
     private Vector3 moveDirection;
-    private float lastHorizontalMove = 1f; // 1 for right, -1 for left
+    private float lastHorizontalMove = 1f; // 1 вправо, -1 влево
 
     public Animator animator;
 
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetInteger("IsMoving", 0);
         }
-
+        // нопки взаимодействий вместо нажати€ на экран, альтернативное управление адаптированное под клавиатуру
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (imageButtons[0].activeSelf == true)

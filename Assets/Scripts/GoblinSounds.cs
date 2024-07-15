@@ -6,6 +6,8 @@ public class GoblinSounds : Sounds
 {
     private int DuringSong;
 
+
+    //Фоновая музыка в игре
     private void Start()
     {
         DuringSong = Random.Range(0, 1);
